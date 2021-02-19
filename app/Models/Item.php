@@ -18,10 +18,23 @@ class Item extends Model
         return $this->belongsTo(SecondaryCategory::class);
     }
 
-    // 商品が出品中かどうかを返すアクセサ
-    public function getlsStateSellingAttribute()
+    public function seller()
     {
-        // $this->stateが、このアクセサを呼び出したリクエストのstate / self::STATE_SELLINGが、このモデル内で作った定数。なので、sellingが入る。
+        // 商品は、1つのsellerを持つ
+        return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function condition()
+    {
+        // 商品は、1つのconditionを持つ
+        return $this->belongsTo(ItemCondition::class, 'item_condition_id');
+    }
+
+    // 商品が出品中かどうかを返すアクセサ
+    public function getIsStateSellingAttribute()
+    {
+        // $this->stateが、このアクセサを呼び出したリクエストのstate
+        // self::STATE_SELLINGが、このモデル内で作った定数。この場合、sellingが入る。
         return $this->state === self::STATE_SELLING;
     }
 

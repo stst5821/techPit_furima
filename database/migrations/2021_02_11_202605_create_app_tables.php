@@ -31,8 +31,6 @@ class CreateAppTables extends Migration
 
         Schema::create('item_conditions', function (Blueprint $table) {
             $table->id();
-
-            // ここにカラムを追加していく
             $table->string('name'); // 商品状態の名称(新品・未使用に近い・目立った傷や汚れなし など)
             $table->integer('sort_no'); // 表示順を決めるためのNO.をつける。
             $table->timestamps();
@@ -51,6 +49,8 @@ class CreateAppTables extends Migration
             $table->text('description');
             $table->unsignedInteger('price');
             $table->string('state');
+            $table->timestamp('bought_at')->nullable();
+            
             $table->timestamps();
 
             $table->foreign('seller_id')->references('id')->on('users');
