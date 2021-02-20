@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Payjp\Charge;
 
 class ItemsController extends Controller
 {
@@ -146,6 +147,18 @@ class ItemsController extends Controller
 
             $seller->sales += $item->price;
             $seller->save();
+
+            // PAY.JPにカードトークンを送信
+            $charge = Charge::create([
+                'card'     => $token, // カードトークンを指定
+                'amount'   => $item->price, // 金額
+                'currency' => 'jpy' // 通貨
+            ]);
+            // 支払いが正常に完了したか調べる。失敗したら例外を投げることで、トランザクションがロールバックされ、DBへの書き込みも取り消される。
+            if (!$charge->captured) {
+                throw new \Exception('支払い確定失敗');
+            }
+
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;

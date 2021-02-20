@@ -12,8 +12,14 @@ class User extends Authenticatable
 
     public function soldItems()
     {
-        // 1つのユーザーは、複数の商品を持つ。第二引数で多側の外部キーを指定しています。
+        // 1つのユーザーは、複数の販売商品を持つ。第二引数で多側の外部キーを指定しています。
         return $this->hasMany(Item::class, 'seller_id');
+    }
+
+    public function boughtItems()
+    {
+        // 1つのユーザーは、複数の購入商品を持つ。第二引数で多側の外部キーを指定しています。
+        return $this->hasMany(Item::class, 'buyer_id');
     }
 
     /**

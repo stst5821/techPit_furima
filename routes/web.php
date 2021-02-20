@@ -42,6 +42,6 @@ Route::prefix('mypage')
 ->group(function(){
     Route::get('edit-profile','ProfileController@showProfileEditForm')->name('mypage.edit-profile');
     Route::post('edit-profile','ProfileController@editProfile')->name('mypage.edit-profile');
-
+    Route::get('bought-items', 'BoughtItemsController@showBoughtItems')->name('mypage.bought-items'); //購入商品一覧画面
     Route::get('sold-items', 'SoldItemsController@showSoldItems')->name('mypage.sold-items');
 });

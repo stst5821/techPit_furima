@@ -30,7 +30,7 @@
 
                         <input type="text" name="keyword" class="form-control" value="{{$defaults['keyword']}}"
                             aria-label="Text input with dropdown button" placeholder="キーワード検索">
-                            
+
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-outline-dark">
                                 <i class="fas fa-search"></i>
@@ -67,14 +67,41 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
+                        <!-- 売上金 -->
+                        <div class="dropdown-item-text">
+                            <div class="row no-gutters">
+                                <div class="col">売上金</div>
+                                <div class="col-auto">
+                                    <i class="fas fa-yen-sign"></i>
+                                    <span class="ml-1">{{number_format($user->sales)}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 出品数 -->
+                        <div class="dropdown-item-text">
+                            <div class="row no-gutters">
+                                <div class="col">出品数</div>
+                                <div class="col-auto">{{number_format($user->soldItems->count())}} 個</div>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
                         <!-- 商品を出品する -->
                         <a class="dropdown-item" href="{{ route('sell') }}">
                             <!-- app.jsで読み込んだfontawesomeでアイコンを表示。 -->
                             <i class="fas fa-camera text-left" style="width: 30px"></i>商品を出品する
                         </a>
 
+                        <!-- 出品した商品 -->
                         <a class="dropdown-item" href="{{ route('mypage.sold-items') }}">
                             <i class="fas fa-store-alt text-left" style="width: 30px"></i>出品した商品
+                        </a>
+
+                        <!-- 購入した商品 -->
+                        <a class="dropdown-item" href="{{ route('mypage.bought-items') }}">
+                            <i class="fas fa-shopping-bag text-left" style="width: 30px"></i>購入した商品
                         </a>
 
                         <!-- プロフィール編集 -->

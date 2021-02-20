@@ -12,6 +12,11 @@ class Item extends Model
     // 購入済
     const STATE_BOUGHT = 'bought';
 
+    // EloquentModelのcastsモデルを使うと、カラムの値を取り出す際にデータ型を変換させることができる。
+    protected $casts = [
+        'bought_at' => 'datetime', // キー名にカラム名、値には変換先のデータ型を指定している。
+    ];
+
     public function secondaryCategory()
     {
         // 商品は、1つのセカンドカテゴリを持つ。
